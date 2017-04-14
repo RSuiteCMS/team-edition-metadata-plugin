@@ -1,0 +1,31 @@
+.lmd-definition-list {
+	table.information {
+		width: 100%;
+		color: @table-text-color;
+		thead {
+			tr {
+				th {
+					text-align: left;
+					padding: 0.125em 0.25em;
+				}
+				background-color: @table-header-background-color;
+				color: @table-header-text-color;
+			}
+		}
+		
+		tbody {
+			td.center-column {
+				text-align: center;
+			}
+			td {
+				padding: 0.125em 0.5em;
+			}
+			tr:nth-child(2n) {
+				background-color: @table-even-background-color;
+			}
+			tr:nth-child(2n+1) {
+				background-color: @table-odd-background-color;
+			}
+		}
+	}
+}

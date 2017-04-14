@@ -1,0 +1,152 @@
+<table class="information">
+	<tr>
+		<td>
+			<table class="input-set main-info">
+				<tr class="input-group">
+					<td><label for="lmd-field-label">Label</label> </td>
+					<td>{{view RSuite.view.Input id="lmd-field-label" valueBinding="view.modelCopy.label"}}</td>
+				</tr>
+				{{#if view.validationNameError}}
+					<tr class="error">
+						<td colspan="2">
+							{{view.validationNameError}}
+						</td>
+					</tr>
+				{{/if}}
+				<tr class="input-group">
+					<td><label for="lmd-field-name">Name</label></td>
+					<td>{{view RSuite.view.Input id="lmd-field-name" valueBinding="view.modelCopy.name"}}</td>
+				</tr>
+				<tr class="input-group">
+					<td><label for="lmd-field-description">Description</label> </td>
+					<td>{{view RSuite.view.Input id="lmd-field-description" valueBinding="view.modelCopy.description"}}</td>
+				</tr>
+			</table>
+			<div class="checkbox-set flags">
+				<div class="checkbox-item">
+					{{view RSuite.view.Checkbox value="1" id="lmd-versioned" checkedBinding="view.modelCopy.versioned"}}
+					<label for="lmd-versioned">Versionable</label>
+				</div>
+				<div class="checkbox-item">
+					{{view RSuite.view.Checkbox value="1" id="lmd-contextual" checkedBinding="view.modelCopy.contextual"}}
+					<label for="lmd-contextual">Contextual allowed</label>
+				</div>
+				<div class="checkbox-item">
+					{{view RSuite.view.Checkbox value="1" id="lmd-multiple" checkedBinding="view.modelCopy.allowMultiple"}}
+					<label for="lmd-multiple">Multiple instances allowed</label>
+				</div>
+				<div class="checkbox-item">
+					{{view RSuite.view.Checkbox id="use-values" value="1" checkedBinding="view.useOptions"}}
+					<label for="use-values">Use a set of values</label>
+				</div>
+			</div>
+		</td>
+		<td class="types">
+			<fieldset class="elements">
+				<legend>Elements</legend>
+				<div class="checkbox-set">
+					{{#each elementType in view.elementTypes}}
+						<div class="checkbox-item">
+							{{#view RSuite.view.LmdFieldEditor.ElementTypeLabel elementTypeBinding="elementType"}}
+								{{view RSuite.view.LmdFieldEditor.ElementTypeCheckbox elementTypeBinding="view.elementType" 	modelBinding="view.parentView.modelCopy"}}
+							{{/view}}
+						</div>
+					{{/each}}
+				</div>
+			</fieldset>
+			<table>
+				<tr>
+					<td>
+						<fieldset class="containers">
+							<legend>Containers</legend>
+							<div class="checkbox-set">
+								<div class="checkbox-item">
+									{{view RSuite.view.Checkbox idBinding="view.allContainersId" value="1" checkedBinding="view.allContainers"}}
+									<label {{bindAttr for="view.allContainersId"}}>All</label>
+								</div>
+								{{#unless view.allContainers}}
+									{{#each containerType in view.systemContainerTypes}}
+										<div class="checkbox-item">
+											{{#view RSuite.view.LmdFieldEditor.ContainerTypeLabel containerTypeBinding="containerType"}}
+												{{view RSuite.view.LmdFieldEditor.ContainerTypeCheckbox
+													containerTypeBinding="view.containerType"
+													modelBinding="view.parentView.modelCopy"
+												}}
+											{{/view}}
+										</div>
+									{{/each}}
+								{{/unless}}
+							</div>
+						</fieldset>
+					</td>
+					<td>
+						<fieldset class="files">
+							<legend>Files</legend>
+							<table>
+								<thead>
+									<td>
+										{{view RSuite.view.Checkbox id="all-files" value="1" checkedBinding="view.allFiles"}}
+									</td>
+									<td>
+										<label for="all-files">All</label>
+									</td>
+									<td>&nbsp;</td>
+								</thead>
+								{{#unless view.allFiles}}
+									<tbody>
+										{{#each ext in view.modelCopy.fileExtensions}}
+											<tr>
+												<td><a class="trash" {{action deleteFileExtension ext}}>Remove</a></td>
+												<td>{{view Ember.TextField valueBinding="ext"}}</td>
+												<td>&nbsp;</td>
+											</tr>
+										{{/each}}
+									</tbody>
+									<tfoot>
+										<tr>
+											<td>&nbsp;</td>
+											<td>{{view Ember.TextField valueBinding="view.newFileExtension"}}</td>
+											<td><a class="add" {{action addFileExtension}}>Add</a></td>
+									</tfoot>
+								{{/unless}}
+							</table>
+						</fieldset>
+					</td>
+				</tr>
+			</table>
+
+		</td>
+	</tr>
+</table>
+{{#if view.useOptions}}
+	<table class="options">
+		<thead>
+			<tr>
+				<td>&nbsp;</td>
+				<th>Label</th>
+				<th>Value</th>
+				<td>&nbsp;</td>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each option in view.modelCopy.options}}
+				<tr>
+					<td><a class="trash" {{action deleteOption option}}>Remove</a></td>
+					<td class="field">{{view RSuite.view.Input valueBinding="option.label"}}</td>
+					<td class="field">{{view RSuite.view.Input valueBinding="option.value"}}</td>
+					<td>&nbsp;</td>
+				</tr>
+			{{/each}}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="field">{{view RSuite.view.Input valueBinding="view.newOptionLabel"}}</td>
+				<td class="field">{{view RSuite.view.Input valueBinding="view.newOptionValue"}}</td>
+				<td>
+					<a class="add" {{action addOption}}>Add</a>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+{{/if}}

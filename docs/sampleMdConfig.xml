@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lmd-configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Sample LMD Config"
+    xsi:noNamespaceSchemaLocation="../doctypes/lmd-configuration.xsd">
+    <lmd-field contextual="true" description="Workflow status" label="Status" name="status"
+        versioned="false">
+        <options>
+            <option label="Open" value="open"/>
+            <option label="Ready" value="ready"/>
+            <option label="In Progress" value="in-progress"/>
+            <option label="Committed" value="committed"/>
+            <option label="In QA" value="in-qa"/>
+            <option label="Resolved" value="resolved"/>
+            <option label="Closed" value="closed"/>
+        </options>
+        <applies-to>
+            <containers type="folder"/>
+            <elements local-name="lmd-configuration"/>
+            <files extension="jpg"/>
+            <files extension="png"/>
+            <files extension="gif"/>
+        </applies-to>
+    </lmd-field>
+    <lmd-field allow-multiple="true" contextual="true" description="Filesize" label="Size"
+        name="size"
+        versioned="false">
+        <applies-to>
+            <files/>
+        </applies-to>
+    </lmd-field>
+    <lmd-field allow-multiple="true" contextual="true" description="Permission type"
+        label="Permission type"
+        name="permissionType"
+        versioned="false">
+        <options>
+            <option label="Digital" value="digital"/>
+            <option label="Print" value="print"/>
+        </options>
+        <applies-to>
+            <files/>
+        </applies-to>
+    </lmd-field>
+    <lmd-field allow-multiple="false" contextual="true" description="Reuse permissions"
+        label="Reuse permissions"
+        name="reusePermissions"
+        versioned="false">
+        <options>
+            <option label="None" value="none"/>
+            <option label="Unlimited" value="unlimited"/>
+        </options>
+        <applies-to>
+            <files/>
+        </applies-to>
+    </lmd-field>
+    <lmd-field contextual="true" description="Tag" label="Tag" name="Tag" versioned="false" allow-multiple="false" >
+        <applies-to>
+            <files/>
+        </applies-to>
+    </lmd-field>
+    <lmd-search description="" instructions="" label="Search by metadata" name="metadataSearch">
+        <lmd-param control-type="select" ref="status"/>
+        <lmd-param allowMultiple="true" control-type="multiselect" ref="tag"/>
+        <lmd-param control-type="select" ref="permissionType"/>
+        <lmd-param control-type="select" ref="reusePermissions"/>
+    </lmd-search>
+    <lmd-edit description="" instructions="" label="Tags" name="metadataEdit">
+        <lmd-param control-type="select" ref="status"/>
+        <lmd-param allow-multiple="true" control-type="input" ref="tag"/>
+    </lmd-edit>
+    <lmd-edit description="" instructions="" label="Permissions" name="permissionsEdit">
+        <lmd-param allow-multiple="true" control-type="checkbox" ref="permissionType"/>
+        <lmd-param allow-multiple="false" control-type="select" ref="reusePermissions"/>
+    </lmd-edit>
+</lmd-configuration>

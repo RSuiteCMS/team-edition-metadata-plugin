@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!--<xs:import namespace="http://www.rsuitecms.com/rsuite/ns/metadata" />-->
+    <xs:element name="lmd-param">
+        <xs:complexType>
+            <xs:attribute name="ref" type="xs:string" use="required"/>
+            <xs:attribute default="false" name="allow-multiple" type="xs:boolean" use="optional"/>
+            <xs:attribute default="text" name="control-type" type="xs:string" use="optional"/>
+            <xs:attribute default="false" name="allow-user-entry" type="xs:boolean" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="lmd-search">
+        <xs:complexType>
+          <xs:sequence>
+              <xs:element ref="lmd-param" maxOccurs="unbounded" minOccurs="0" />
+          </xs:sequence>
+          <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="label" type="xs:string" use="optional" />
+          <xs:attribute name="description" type="xs:string" use="optional"/>
+          <xs:attribute name="instructions" type="xs:string" use="optional"/>
+          <xs:attribute name="roles" type="xs:string" use="optional"/>
+          <xs:attribute name="icon" type="xs:string" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="lmd-edit">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="lmd-param" maxOccurs="unbounded" minOccurs="0" />
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="label" type="xs:string" use="optional" />
+            <xs:attribute name="description" type="xs:string" use="optional"/>
+            <xs:attribute name="instructions" type="xs:string" use="optional"/>
+            <xs:attribute name="roles" type="xs:string" use="optional"/>
+            <xs:attribute name="icon" type="xs:string" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="lmd-field">
+       <xs:complexType>
+           <xs:sequence>
+               <xs:element ref="options" minOccurs="0" maxOccurs="1" />
+               <xs:element ref="applies-to" minOccurs="0" maxOccurs="1" />
+           </xs:sequence>
+           <xs:attribute name="name" type="xs:string" use="required"/>
+           <xs:attribute name="label" type="xs:string" use="optional" default="" />
+           <xs:attribute name="description" type="xs:string" default="" use="optional"/>
+           <xs:attribute default="true" name="contextual" type="xs:boolean" use="optional"/>
+           <xs:attribute default="false" name="versioned" type="xs:boolean" use="optional"/>
+           <xs:attribute default="false" name="allow-multiple" type="xs:boolean" use="optional"/>
+           <xs:attribute default="text" name="control-type" type="xs:string" use="optional"/>
+       </xs:complexType>
+    </xs:element>
+	<xs:element name="applies-to">
+		<xs:complexType>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="elements" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element ref="containers" minOccurs="0" maxOccurs="unbounded" />
+			    <xs:element ref="files" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+    <xs:element name="elements">
+       <xs:complexType>
+			<xs:attribute name="namespace-uri" type="xs:string" use="optional" />
+			<xs:attribute name="local-name" type="xs:string" use="required" />
+       </xs:complexType>
+    </xs:element>
+    <xs:element name="containers">
+       <xs:complexType>
+			<xs:attribute name="type" type="xs:string" use="required" />
+       </xs:complexType>
+    </xs:element>
+    <xs:element name="files">
+        <xs:complexType>
+            <xs:attribute name="extension" type="xs:string" use="optional" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="options">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="option" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="option">
+		<xs:complexType>
+			<xs:attribute name="label" type="xs:string" use="optional" />
+			<xs:attribute name="value" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+    <xs:element name="lmd-configuration">
+       <xs:complexType>
+           <xs:sequence maxOccurs="unbounded" minOccurs="0">
+               <xs:element maxOccurs="unbounded" minOccurs="0" ref="lmd-field" />
+               <xs:element maxOccurs="unbounded" minOccurs="0" ref="lmd-search"/>
+               <xs:element maxOccurs="unbounded" minOccurs="0" ref="lmd-edit"/>
+           </xs:sequence>
+           <xs:attribute name="name" use="required" type="xs:string"/>
+       </xs:complexType>
+    </xs:element>
+</xs:schema>

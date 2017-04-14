@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lmd-configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="../doctypes/lmd-configuration.xsd"
+ name="Sample LMD Config">
+    <lmd-field name="status" versioned="false" label="Status" contextual="true" description="Workflow status">
+		<options>
+			<option value="open" label="Open" />
+			<option value="ready" label="Ready" />
+			<option value="in-progress" label="In Progress" />
+			<option value="committed" label="Committed" />
+			<option value="in-qa" label="In QA" />
+			<option value="resolved" label="Resolved" />
+			<option value="closed" label="Closed" />
+		</options>
+		<applies-to>
+			<containers type="folder" />
+			<elements local-name="lmd-configuration" />
+			<files extension="jpg" />
+			<files extension="png" />
+			<files extension="gif" />
+		</applies-to>
+    </lmd-field>
+	<lmd-field name="size" versioned="false" label="Size" allow-multiple="true" contextual="true" description="Filesize">
+		<applies-to>
+			<files />
+		</applies-to>
+	</lmd-field>
+	<lmd-field name="argle-bargle" versioned="false" label="Size" contextual="true" description="Filesize">
+		<applies-to>
+			<files />
+		</applies-to>
+	</lmd-field>
+    <lmd-search name="statusSearch" label="Search by status" description="" instructions="">
+        <lmd-param ref="status" control-type="checkbox"/>
+    </lmd-search>
+    <lmd-edit name="statusEdit" label="Edit status" description="" instructions="">
+        <lmd-param ref="status" control-type="select"/>
+		<lmd-param ref="size" control-type="input"/>
+    </lmd-edit>
+</lmd-configuration>

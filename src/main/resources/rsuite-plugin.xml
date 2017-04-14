@@ -1,0 +1,115 @@
+<rsuite-plugin id="@pluginId@" version="@pluginVersion@" timestamp="@timeStamp@">
+	<lifecycleListener type="com.rsicms.teamEdition.dynamicLmd.lifecycle.InitLmd" />
+
+    <extensionProvider id="rsuite.WebService">
+		<staticWebService path="/WebContent" root="/@pluginId@"/>
+		<remoteApiDefinition id="@pluginId@.ForceLmdUpdate" handler="com.rsicms.teamEdition.dynamicLmd.api.ForceLmdUpdate" />
+		<remoteApiDefinition id="@pluginId@.LmdConfig" handler="com.rsicms.teamEdition.dynamicLmd.api.LmdConfig" />
+		<remoteApiDefinition id="@pluginId@.ElementTypes" handler="com.rsicms.teamEdition.dynamicLmd.api.ElementTypes" />
+    </extensionProvider>
+
+	<extensionProvider id="rsuite.Forms">
+		<formDefinition id="@pluginId@.LmdConfigUpload"
+		                label="Add RSuite Team Edition User"
+		                description="Add TE User">
+			
+			<column name="only">
+				<param name="config" formControlType="file" label="Metadata Configuration XML" />
+			</column>
+			<column name="controls">
+				<param name="submit" label="Upload" formControlType="button" />
+				<param name="cancel" label="Cancel" formControlType="button" />
+			</column>
+		</formDefinition>
+	</extensionProvider>
+	
+	<extensionProvider id="rsuite.ContextMenu">
+        <contextMenuRuleSet name="@pluginId@:uploadConfig" scope="system">
+            <menuItemList>
+                <menuItem id="uploadConfig">
+                    <type>action</type>
+                    <actionName>rsuite:invokeWebservice</actionName>
+                    <label>Upload metadata config</label>
+                    <property name="rsuite:icon" value="metadata"/>
+                    <property name="formId" value="@pluginId@.LmdConfigUpload"/>
+                    <property name="remoteApiName" value="@pluginId@.LmdConfig"/>
+                    <property name="rsuite:group" value="TE" />
+					<property name="rsuite:path" value="Metadata" />
+                </menuItem>
+                <menuItem id="uploadConfig">
+                    <type>action</type>
+                    <actionName>rsuite:invokeWebservice</actionName>
+                    <label>Preview metadata config</label>
+                    <property name="rsuite:icon" value="previewXml"/>
+                    <property name="remoteApiName" value="@pluginId@.LmdConfig"/>
+                    <property name="rsuite:group" value="TE" />
+					<property name="rsuite:path" value="Metadata" />
+					<property name="useTransport" value="window" />
+                </menuItem>
+                <menuItem id="uploadConfig">
+                    <type>action</type>
+                    <actionName>rsuite:editLmdFields</actionName>
+                    <label>Edit metadata fields</label>
+					<property name="rsuite:group" value="TE" />
+					<property name="rsuite:path" value="Metadata" />
+                </menuItem>
+                <menuItem id="uploadConfig">
+                    <type>action</type>
+                    <actionName>rsuite:editLmdEditForms</actionName>
+                    <label>Configure metadata editors</label>
+					<property name="rsuite:group" value="TE" />
+					<property name="rsuite:path" value="Metadata" />
+                </menuItem>
+                <menuItem id="uploadConfig">
+                    <type>action</type>
+                    <actionName>rsuite:editLmdSearchForms</actionName>
+                    <label>Configure metadata filtered search</label>
+					<property name="rsuite:group" value="TE" />
+					<property name="rsuite:path" value="Metadata" />
+                </menuItem>				
+            </menuItemList>
+			
+        </contextMenuRuleSet>
+	</extensionProvider>
+	
+    <extensionProvider id="rsuite.UI">
+		<scriptInclude src="@pluginId@/object.js" />
+		
+		<scriptInclude src="@pluginId@/rsuite/model/lmd-base-model.js" />
+		<scriptInclude src="@pluginId@/rsuite/model/element-types.js" />
+		<scriptInclude src="@pluginId@/rsuite/model/element-type.js" />
+		<scriptInclude src="@pluginId@/rsuite/model/lmd-configuration.js" />
+		<scriptInclude src="@pluginId@/rsuite/model/lmd-configuration/form.js" />
+		<scriptInclude src="@pluginId@/rsuite/model/lmd-configuration/form-param.js" />
+		<scriptInclude src="@pluginId@/rsuite/model/lmd-configuration/search-form.js" />
+		<scriptInclude src="@pluginId@/rsuite/model/lmd-configuration/edit-form.js" />
+		<scriptInclude src="@pluginId@/rsuite/model/lmd-configuration/field.js" />
+		
+		<scriptInclude src="@pluginId@/rsuite/view/icon/delete-button.js" />
+		<scriptInclude src="@pluginId@/rsuite/view/icon/edit-button.js" />
+		<scriptInclude src="@pluginId@/rsuite/view/icon/add-button.js" />
+		
+		<scriptInclude src="@pluginId@/rsuite/view/checkbox.js" />
+		<scriptInclude src="@pluginId@/rsuite/view/input.js" />
+		<scriptInclude src="@pluginId@/rsuite/view/lmd-definition-list.js" />
+		<scriptInclude src="@pluginId@/rsuite/view/lmd-field-editor.js" />
+		<scriptInclude src="@pluginId@/rsuite/view/lmd-field-editor/container-type-checkbox.js" />
+		<scriptInclude src="@pluginId@/rsuite/view/lmd-field-editor/container-type-label.js" />
+		<scriptInclude src="@pluginId@/rsuite/view/lmd-field-editor/element-type-checkbox.js" />
+		<scriptInclude src="@pluginId@/rsuite/view/lmd-field-editor/element-type-label.js" />
+		
+		<scriptInclude src="@pluginId@/rsuite/view/lmd-form-list.js" />
+		<scriptInclude src="@pluginId@/rsuite/view/lmd-edit-form-list.js" />
+		<scriptInclude src="@pluginId@/rsuite/view/lmd-search-form-list.js" />
+		
+		<scriptInclude src="@pluginId@/rsuite/action/metadata-config-editors.js" />
+		
+		<styleInclude src="@pluginId@/style/lmd-field-editor.less" />
+		<styleInclude src="@pluginId@/style/lmd-definition-list.less" />
+		
+		<scriptInclude src="@pluginId@/init.js" />
+		
+		<scriptInclude src="@pluginId@/test.js" />
+    </extensionProvider>
+
+</rsuite-plugin>

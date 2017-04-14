@@ -1,0 +1,36 @@
+﻿<table class="information">
+	<thead>
+		<tr>
+			<th>&nbsp;</th>
+			<th>Label</th>
+			<th>Name</th>
+			<th>Contextual</th>
+			<th>Versionable</th>
+			<th>Multiple</th>
+			<th>Values</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each field in view.model}}
+			{{#if field.name}}
+				<tr {{bindAttr title="field.description"}}>
+					<td>{{view RSuite.view.DeleteFieldButton fieldBinding="field"}}</td>
+					<td>{{field.label}}</td>
+					<td>{{field.name}}</td>
+					<td class="center-column"><input type="checkbox" value="true" readonly {{bindAttr checked="field.contextual"}} {{action cancelClick}}/></td>
+					<td class="center-column"><input type="checkbox" value="true" readonly {{bindAttr checked="field.versioned"}} {{action cancelClick}} /></td>
+					<td class="center-column"><input type="checkbox" value="true" readonly {{bindAttr checked="field.allowMultiple"}} {{action cancelClick}} /></td>
+					<td class="center-column">{{field.options.length}}</td>
+					<td>{{view RSuite.view.EditFieldButton fieldBinding="field"}}</td>
+				</tr>
+			{{/if}}
+		{{/each}}
+	</tbody>
+	<tfoot>
+		<tr>
+			<td align="right" colspan="8">
+				{{view RSuite.view.AddFieldButton}}
+			</td>
+		</tr>
+	</tfoot>
+</table>
